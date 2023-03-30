@@ -29,6 +29,7 @@ var defaultRules = []lint.Rule{
 	&rule.PhantomReadsRule{},
 	&rule.RangeOverMapRule{},
 	&rule.GlobalVariablesRule{},
+	&rule.FieldDeclaration{},
 }
 
 var allRules = append([]lint.Rule{
@@ -50,7 +51,7 @@ var allRules = append([]lint.Rule{
 	&rule.TimeNamingRule{},
 	&rule.ContextKeysType{},
 	&rule.ContextAsArgumentRule{},
-        &rule.DivideByZeroRule{},
+	&rule.DivideByZeroRule{},
 	&rule.ExportedRule{},
 	&rule.ArgumentsLimitRule{},
 	&rule.CyclomaticRule{},
