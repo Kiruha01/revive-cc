@@ -12,3 +12,4 @@ warningCode = 0
 [rule.range-over-map]
 [rule.global-variables]
 [rule.field-declaration]
+[rule.cross-channel-invocation]

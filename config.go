@@ -30,6 +30,7 @@ var defaultRules = []lint.Rule{
 	&rule.RangeOverMapRule{},
 	&rule.GlobalVariablesRule{},
 	&rule.FieldDeclaration{},
+	&rule.CrossChannelInvocation{},
 }
 
 var allRules = append([]lint.Rule{
