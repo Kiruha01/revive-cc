@@ -13,3 +13,4 @@ warningCode = 0
 [rule.global-variables]
 [rule.field-declaration]
 [rule.cross-channel-invocation]
+[rule.reified-object-address]

@@ -31,6 +31,7 @@ var defaultRules = []lint.Rule{
 	&rule.GlobalVariablesRule{},
 	&rule.FieldDeclaration{},
 	&rule.CrossChannelInvocation{},
+	&rule.ReifiedObjectAddress{},
 }
 
 var allRules = append([]lint.Rule{
