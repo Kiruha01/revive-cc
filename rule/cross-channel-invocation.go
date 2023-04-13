@@ -41,13 +41,16 @@ func (w lintCrossChannel) Visit(node ast.Node) ast.Visitor {
 	if callExpr, ok := node.(*ast.CallExpr); ok {
 		if ident, ok := callExpr.Fun.(*ast.SelectorExpr); ok {
 			if ident.Sel.Name == "InvokeChaincode" {
-				if len(callExpr.Args) > 0 {
-					w.onFailure(lint.Failure{
-						Confidence: 1,
-						Node:       node,
-						Failure:    "Invalid chaincode name in InvokeChaincode call",
-						Category:   "security",
-					})
+				if len(callExpr.Args) == 3 {
+					lit, ok := callExpr.Args[2].(*ast.BasicLit)
+					if ok && lit.Value != `""` || !ok {
+						w.onFailure(lint.Failure{
+							Confidence: 1,
+							Node:       node,
+							Failure:    "Potential vulnerability in cross-channel invocation detected",
+							Category:   "security",
+						})
+					}
 				}
 			}
 		}
