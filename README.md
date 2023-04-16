@@ -84,6 +84,32 @@ The range keyword allows the ability to iterate through every element in various
 </p>
 For a write to ledger statement to take effect, the transaction first must be committed and written to the ledger. Until then the value that has been written to will retain its old value. Which means that reading this value from the ledger will just return the old value which is likely not what is intended by the chaincode. This will lead to unexpected behaviour which may affect the execution of transactions and cause unintended results.
 
+### Field declaration
+<p align="center">
+  <img src="./assets/fielddectaration.png" alt="" width="500">
+  <br>
+  Example of field declaration vulnerability in chaincode
+</p>
+There should be no field declarations in the chaincode structure. Chaincode needs to implement interfaces Init and Invoke, where fields can be accessed if they are defined in the structure. However, since each peer node does not necessarily perform every transaction, the field values of the chaincode may be inconsistent among the peer nodes. The ﬁeld can be used with the global status in the system. However, since every peer does not execute every transaction, the state does not keep the same value among peers 
+
+### Cross channel invocation
+<p align="center">
+  <img src="./assets/crosschannelinvokation.png" alt="" width="500">
+  <br>
+  Example of invocation other chaincode
+</p>
+If two chaincodes are on the same channel, there is no problem calling each other. If not, it is difficult to guarantee that no other data will be submitted to the channel of the chaincode and that only the data returned by the chaincode method will be accepted.
+
+### Reified object addresses
+<p align="center">
+  <img src="./assets/reifiedobjectaddress.png" alt="" width="500">
+  <br>
+  Example of reified object addresses vulnerability in chaincode
+</p>
+Developers can handle the value of a variable with a pointer, which is the address of memory, and the value stored at that address depends on the environment. Thus, the value fetched at a specific address may vary from one environment to another.
+
+
+
 
 
 ## License
