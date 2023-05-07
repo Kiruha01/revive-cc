@@ -2,6 +2,7 @@ package rule
 
 import (
 	"bytes"
+	"fmt"
 	"go/ast"
 	"go/format"
 	"go/token"
@@ -95,6 +96,20 @@ func (w lintPhantomReads) Visit(node ast.Node) ast.Visitor {
 								}
 							}
 							return true
+						})
+					} else if functionCall[1] == "GetStateByRange" ||
+						functionCall[1] == "GetStateByRangeWithPagination" ||
+						functionCall[1] == "GetStateByPartialCompositeKey" ||
+						functionCall[1] == "GetStateByPartialCompositeKeyWithPagination" ||
+						functionCall[1] == "GetPrivateDataByRange" ||
+						functionCall[1] == "GetQueryResultWithPagination" ||
+						functionCall[1] == "GetPrivateDataQueryResult" ||
+						functionCall[1] == "GetPrivateDataByPartialCompositeKey" {
+						w.onFailure(lint.Failure{
+							Confidence: 0.8,
+							Failure:    fmt.Sprintf("\"potentially phantom reads with %s: Ensure that data obtained from phantom reads is not used to modify or update the ledger, as it may lead to inconsistent or unintended state changes", functionExpression),
+							Node:       phantomReadNode,
+							Category:   "control flow",
 						})
 					}
 				}
